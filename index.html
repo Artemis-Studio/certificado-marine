@@ -24,6 +24,8 @@
 
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:#EEF1F2}
+  body{padding-right:330px}
+  body.fechado{padding-right:0}
   body{font-family:var(--f-body);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
   /* ---------- FOLHA A4 PAISAGEM ---------- */
@@ -117,15 +119,17 @@
     font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
   .painel .pdf{background:#29859C;color:#fff}
   .painel .reset{background:transparent;color:#8FA5AD;border:1px solid #2A4A57}
-  .toggle{position:fixed;top:14px;right:14px;z-index:100;padding:9px 14px;border:0;border-radius:5px;
+  .toggle{position:fixed;top:14px;right:344px;z-index:100;padding:9px 14px;border:0;border-radius:5px;
     background:#0F2731;color:#DCE7EA;cursor:pointer;font-family:var(--f-display);font-size:11px;
     font-weight:600;letter-spacing:.12em;text-transform:uppercase}
   body.fechado .painel{display:none}
+  body.fechado .toggle{right:14px}
 
   /* ---------- IMPRESSÃO ---------- */
   @page{size:A4 landscape;margin:0}
   @media print{
     html,body{background:#fff}
+    body{padding-right:0 !important}
     .folha{transform:none !important}
     .painel,.toggle{display:none !important}
     .folha{margin:0;box-shadow:none;width:100%;height:100vh;page-break-after:avoid}
@@ -336,7 +340,7 @@ if (url.has("nome")) document.body.classList.add("fechado");
 const folha = document.querySelector(".folha");
 function encaixar(){
   const painelAberto = !document.body.classList.contains("fechado");
-  const sobra = window.innerWidth - (painelAberto ? 350 : 60);
+  const sobra = window.innerWidth - (painelAberto ? 380 : 60);
   const escala = Math.max(.45, Math.min(1, sobra / (297 * 96 / 25.4)));
   folha.style.transform = "scale(" + escala + ")";
   const alturaPx = 210 * 96 / 25.4;
